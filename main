@@ -1,0 +1,274 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+class railway:
+    def main():
+        print("*" * 26)
+        print("*{: ^24}*".format("WELCOME TO"))
+        print("*{: ^24}*".format("RAILWAY TICKET BOOKING"))
+        print("*" * 26)
+
+        source = int(input("Choose Source you want to travel from \n 1.Mumbai \n 2.New Delhi \n 3.Chennai \n 4.Kolkata \n 5.Banglore \n "))
+        Dest = int(input("Choose Destination you want to go to \n 1.Mumbai \n 2.New Delhi \n 3.Chennai \n 4.Kolkata \n 5.Banglore \n "))
+        
+        if source == Dest:
+            print("Choose different destination and source \n")
+            railway.main()
+
+        if source == 1:
+            print("Base travelling price = 400 \n")
+        elif source == 2:
+            print("Base travelling price = 500 \n")
+        elif source == 3:
+            print("Base travelling price = 300 \n")
+        elif source == 4:
+            print("Base travelling price = 200 \n")
+        elif source == 5:
+            print("Base travelling price = 600 \n")
+
+        np = int(input("Enter number of passengers \n:"))  
+
+        t = railway.timing()
+        l = railway.fare(source, Dest, np)
+        railway.final(t, l, source, Dest, np)
+
+    def fare(source, Dest, np):
+        c = int(input("Enter Coach Type: \n 1.General Coach [No extra cost] \n 2.Sleeper Coach [Rs.100 extra] \n 3.Ac Coach [Rs200 extra] \n "))
+        if source == 1:
+            if c == 1:
+                co = "General Coach"
+                f = 400 * np
+                print("General Coach\n")
+            elif c == 2:
+                co = "Sleeper Coach"
+                f = 500 * np
+                print("Sleeper Coach \n")
+            elif c == 3:
+                co = "Ac Coach"
+                f = 600 * np
+                print("Ac Coach \n")
+            else:
+                print("Wrong choice")
+                railway.main()
+        elif source == 2:
+            if c == 1:
+                co = "General Coach"
+                f = 500 * np
+                print("General Coach\n")
+            elif c == 2:
+                co = "Sleeper Coach"
+                f = 600 * np
+                print("Sleeper Coach \n")
+            elif c == 3:
+                co = "Ac Coach"
+                f = 700 * np
+                print("Ac Coach \n")
+            else:
+                print("Wrong choice")
+                railway.main()
+        elif source == 3:
+            if c == 1:
+                co = "General Coach"
+                f = 300 * np
+                print("General Coach\n")
+            elif c == 2:
+                co = "Sleeper Coach"
+                f = 400 * np
+                print("Sleeper Coach \n")
+            elif c == 3:
+                co = "Ac Coach"
+                f = 500 * np
+                print("Ac Coach \n")
+            else:
+                print("Wrong choice")
+                railway.main()
+        elif source == 4:
+            if c == 1:
+                co = "General Coach"
+                f = 200 * np
+                print("General Coach\n")
+            elif c == 2:
+                co = "Sleeper Coach"
+                f = 300 * np
+                print("Sleeper Coach \n")
+            elif c == 3:
+                co = "Ac Coach"
+                f = 400 * np
+                print("Ac Coach \n")
+            else:
+                print("Wrong choice")
+                railway.main()
+        elif source == 5:
+            if c == 1:
+                co = "General Coach"
+                f = 600 * np
+                print("General Coach\n")
+            elif c == 2:
+                co = "Sleeper Coach"
+                f = 700 * np
+                print("Sleeper Coach \n")
+            elif c == 3:
+                co = "Ac Coach"
+                f = 800 * np
+                print("Ac Coach \n")
+            else:
+                print("Wrong choice")
+                railway.main()
+
+        l = [co, f]
+        return l
+
+    def timing():
+        c = int(input("Choose timings \n 1.Departure:2:00 pm \n Arrival:10:00 pm \n \n 2.Departure:5:00 pm \n Arrival:12:00 am \n \n 3.Departure:1:00 pm \n Arrival:10:30 pm \n \n "))
+        if c == 1:
+            t = "Departure:2:00 pm \n Arrival:10:00 pm"
+            print("Your Timings for the train are: \n Departure:2:00 pm \n Arrival:10:00 pm \n")
+        elif c == 2:
+            t = "Departure:5:00 pm \n Arrival:12:00 am"
+            print("Your Timings for the train are: \n Departure:5:00 pm \n Arrival:12:00 am \n")
+        elif c == 3:
+            t = "Departure:1:00 pm \n Arrival:10:30 pm"
+            print("Your Timings for the train are: \n Departure:1:00 pm \n Arrival:10:30 pm \n")
+        else:
+            print("Wrong Choice \n Choose again \n")
+            railway.timing()
+        return t
+
+    def final(t, l, source, Dest, np):
+        import random
+        name = []
+        ages = []
+        gender = []
+
+        print("Enter information of ", np, "passengers travelling")
+        for i in range(np):
+            n = input("Enter name of passenger " + str(i + 1) + "\n")
+            name.append(n)
+            age = int(input("Enter age of passenger " + str(i + 1) + "\n"))
+            ages.append(age)
+            gen = input("Enter gender of passenger " + str(i + 1) + " [Enter M-Male, F-Female or O-Other] \n")
+            gender.append(gen)
+
+        p = random.randint(1000000000, 9999999999)
+        seat = []
+
+        for i in range(np):
+            if l[0] == "General Coach":
+                sn = "G" + str(random.randint(1, 15)) + "-" + str(random.randint(20, 65))
+            elif l[0] == "Sleeper Coach":
+                sn = "S" + str(random.randint(1, 15)) + "-" + str(random.randint(20, 65))
+            else:
+                sn = "Ac" + str(random.randint(1, 15)) + "-" + str(random.randint(20, 65))
+
+            if sn not in seat:
+                seat.append(sn)
+
+        print("Billing Details \n")
+        print("----------------------------------------------------------------------------------------\n")
+        print("PASSENGER NAME RECORD NUMBER[PNR No.]:", p, "\n")
+        print("PASSENGER INFORMATION-\n")
+        for i in range(np):
+            print("Name of passenger ", i + 1, ":", name[i], "\n")
+            print("Age of passenger ", i + 1, ":", ages[i], "\n")
+            print("Gender of passenger ", i + 1, ":", gender[i], "\n")
+
+        if source == 1:
+            s = "Mumbai"
+        elif source == 2:
+            s = "New Delhi"
+        elif source == 3:
+            s = "Chennai"
+        elif source == 4:
+            s = "Kolkata"
+        elif source == 5:
+            s = "Banglore"
+
+        if Dest == 1:
+            d = "Mumbai"
+        elif Dest == 2:
+            d = "New Delhi"
+        elif Dest == 3:
+            d = "Chennai"
+        elif Dest == 4:
+            d = "Kolkata"
+        elif Dest == 5:
+            d = "Banglore"
+
+        print("------------------------------\n")
+        print("BOOKING DETAILS-\n")
+        print("Source:", s, "\n")
+        print("Destination:", d, "\n")
+        print("Timing:", t, "\n")
+        print("Coach type:", l[0], "\n")
+        print("Seat Number:")
+        for x in seat:
+            print(x, " ")
+        print("\n")
+        print("Total Fare:", l[1], "\n")
+        print("----------------------------------------------------------------------------------------\n")
+
+        email = input("Enter your email address to receive booking details: ")
+        railway.send_email(name, ages, gender, p, s, d, t, l, seat, np, email)
+
+    @staticmethod
+    def send_email(name, ages, gender, pnr, source, destination, timings, coach_details, seat_numbers, num_passengers, customer_email):
+        # Email configuration
+        sender_email = "namitha@gmail.com"
+        sender_password = "Namitha"
+        smtp_server = "smtp.gmail.com"
+        port = 587  # For starttls
+
+        # Email content
+        subject = "Your Railway Ticket Booking Confirmation"
+        body = f"""
+        Booking Confirmation
+
+        PNR Number: {pnr}
+
+        Passenger Information:
+        """
+        for i in range(num_passengers):
+            body += f"""
+            Passenger {i + 1}: 
+            Name: {name[i]} 
+            Age: {ages[i]} 
+            Gender: {gender[i]}"""
+
+        body += f"""
+
+        Journey Details:
+        Source: {source}
+        Destination: {destination}
+        Timings: {timings}
+        Coach Type: {coach_details[0]}
+        Seat Numbers: {", ".join(seat_numbers)}
+
+        Total Fare: {coach_details[1]}
+
+        Thank you for booking with us!
+        """
+
+        # Create the email
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = customer_email
+        msg['Subject'] = subject
+
+        msg.attach(MIMEText(body, 'plain'))
+
+        try:
+            # Connect to the server and send the email
+            server = smtplib.SMTP(smtp_server, port)
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, customer_email, msg.as_string())
+            print(f"Booking details sent to {customer_email}")
+        except Exception as e:
+            print(f"Failed to send email: {e}")
+        finally:
+            server.quit()
+
+
+# Main execution
+railway.main()
